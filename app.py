@@ -33,6 +33,12 @@ st.html("""
 }
 .photo-card {
     display: block;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    align-self: start;
+    aspect-ratio: 1 / 1;
     color: var(--ink) !important;
     background: #fff;
     text-decoration: none !important;
@@ -42,9 +48,11 @@ st.html("""
 }
 .photo-card img {
     display: block;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     background: #ebe9e0;
 }
 .photo-card:hover, .photo-card:focus-visible,
@@ -107,8 +115,8 @@ def show_grid(photos):
         cards.append(
             f'<a class="photo-card" href="{photo_link(number)}" '
             f'aria-label="{number}. fotoğrafı aç">'
-            f'<img src="./app/static/thumbs/{filename}" alt="" '
-            'width="420" height="420" loading="lazy" decoding="async"></a>'
+            f'<img src="./app/static/thumbs/{filename}?v=2" alt="" '
+            'loading="lazy" decoding="async"></a>'
         )
     st.html('<div class="photo-grid">' + "".join(cards) + '</div>')
 
@@ -117,7 +125,7 @@ def show_photo(photos, number):
     st.html('<a class="back-link" href="?">‹ Galeriye dön</a>')
     navigation(number, len(photos))
     filename = photos[number - 1]
-    st.html(f'<img class="full-photo" src="./app/static/photos/{filename}" '
+    st.html(f'<img class="full-photo" src="./app/static/photos/{filename}?v=2" '
             f'alt="{number}. fotoğraf" decoding="async">')
 
 
